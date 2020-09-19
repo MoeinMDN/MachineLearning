@@ -1,2 +1,2 @@
 # MachineLearning
- my road to learn some slice of machine learning. 
+ My Road To Learn Some Slice Of Machine Learning. 
