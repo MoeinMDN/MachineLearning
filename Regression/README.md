@@ -1,4 +1,4 @@
-# Regression
+ # Regression
 ## Regression Introducing 
 - [Linear Regression (Part 1): Initialization and Prediction](https://github.com/FisherKK/F1sherKK-MyRoadToAI)
 - [Linear Regression (Part 2): Cost Function](https://towardsdatascience.com/coding-deep-learning-for-beginners-linear-regression-part-2-cost-function-49545303d29f)
@@ -9,5 +9,4 @@
 - [Gradient Descent Part 3 Chieh](https://www.youtube.com/watch?v=DjF3GiCazwc)
 - [Gradient Descent Part 4 Chieh](https://www.youtube.com/watch?v=slU2MMv1mD0&t)
 - [Build Gradient Descent From Scratch (with code)](https://towardsdatascience.com/gradient-descent-from-scratch-e8b75fa986cc)
-
-
+- [Multivariate Linear Regression from Scratch in Python (with code)](https://medium.com/@pytholabs/multivariate-linear-regression-from-scratch-in-python-5c4f219be6a)
