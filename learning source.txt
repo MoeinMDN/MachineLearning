@@ -1,5 +1,0 @@
-https://scikit-learn.org/stable/
-https://towardsdatascience.com/coding-deep-learning-for-beginners-linear-regression-part-1-initialization-and-prediction-7a84070b01c8
-https://github.com/FisherKK/F1sherKK-MyRoadToAI
-
-
