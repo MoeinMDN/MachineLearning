@@ -8,6 +8,6 @@
 - [Gradient Descent Part 2 Chieh](https://www.youtube.com/watch?v=n5Cax1wUlV0)
 - [Gradient Descent Part 3 Chieh](https://www.youtube.com/watch?v=DjF3GiCazwc)
 - [Gradient Descent Part 4 Chieh](https://www.youtube.com/watch?v=slU2MMv1mD0&t)
-- [Gradient Descent From Scratch](https://towardsdatascience.com/gradient-descent-from-scratch-e8b75fa986cc)
+- [Build Gradient Descent From Scratch(with code)](https://towardsdatascience.com/gradient-descent-from-scratch-e8b75fa986cc)
 
 
