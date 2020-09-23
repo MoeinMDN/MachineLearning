@@ -5,13 +5,24 @@ import random
 
 
 class NearestNeighbors:
-    def __init__(self, data, k=1):
+    def __init__(self, data, k=1, measure='e'):
         self.x = []
         self.y = []
-        for i in data:
+        self.data = data
+        validMeasure = ['e', 'm', 'manhattan', 'euclid']
+        if measure in validMeasure:
+            self.measure = measure
+        else:
+            raise IOError(f'use one of the valid measure: {validMeasure}')
+        self.initialize()
+        self.LengthOfLabels = self.findLengthOfLabels()
+        self.k = k
+
+    def initialize(self):
+        for i in self.data:
             self.x.append(i[:-1])
             self.y.append(i[-1])
-        self.k = k
+        return [self.x, self.y]
 
     @staticmethod
     def euclid(dataSetSample, NewSample):
@@ -21,20 +32,25 @@ class NearestNeighbors:
     def manhattan(dataSetSample, NewSample):
         return np.sqrt(np.sum(abs(np.array(dataSetSample) - np.array(NewSample))))
 
+    def findLengthOfLabels(self):
+        temp = np.unique(self.y)
+        return {'groupName': list(temp), 'length': len(temp)}
+
     def analyzeResult(self, predictResult):
         result = sorted(predictResult)[:self.k]
-        countGroup = [0, 0]
+        countGroup = list(np.zeros(self.LengthOfLabels['length']))
         for item in result[:self.k]:
-            if item[1] == 0:
-                countGroup[0] += 1
-            else:
-                countGroup[1] += 1
+            countGroup[self.LengthOfLabels['groupName'].index(item[1])] = +1
         return countGroup.index(max(countGroup))
 
     def predict(self, newX):
         result = []
+        cal = 0
         for x, y in zip(self.x, self.y):
-            cal = self.euclid(x, newX)
+            if self.measure in ['e', 'euclid']:
+                cal = self.euclid(x, newX)
+            if self.measure in ['m', 'manhattan']:
+                cal = self.manhattan(x, newX)
             result.append([cal, y])
         return self.analyzeResult(result)
 
@@ -58,7 +74,8 @@ if __name__ == '__main__':
 
     train, test = allDataSet[:percentSlice], allDataSet[percentSlice:]
 
-    N = NearestNeighbors(train, k=3)
+    N = NearestNeighbors(train, k=3, measure='e')
+
     total = 0
     correct = 0
     for item in test:
