@@ -5,9 +5,12 @@ import random
 
 
 class NearestNeighbors:
-    def __init__(self, data, label, k=1):
-        self.x = data
-        self.y = label
+    def __init__(self, data, k=1):
+        self.x = []
+        self.y = []
+        for i in data:
+            self.x.append(i[:-1])
+            self.y.append(i[-1])
         self.k = k
 
     @staticmethod
@@ -22,7 +25,7 @@ class NearestNeighbors:
         result = sorted(predictResult)[:self.k]
         countGroup = [0, 0]
         for item in result[:self.k]:
-            if item[1][0] == 0:
+            if item[1] == 0:
                 countGroup[0] += 1
             else:
                 countGroup[1] += 1
@@ -37,9 +40,8 @@ class NearestNeighbors:
 
 
 if __name__ == '__main__':
-
     '''
-    Test Algorithm In Cancer Data Set
+    Test Algorithm In Cancer DataSet From Sklearn
     '''
 
     data = load_breast_cancer()
@@ -49,16 +51,19 @@ if __name__ == '__main__':
     DataSetData = pd.DataFrame(DataSetData)
     DataSetLabel = pd.DataFrame(DataSetLabel)
 
-    DataSetData = DataSetData.astype(float).values.tolist()
-    DataSetLabel = DataSetLabel.astype(float).values.tolist()
+    allDataSet = pd.concat([DataSetData, DataSetLabel], axis=1).astype(float).values.tolist()
+    random.shuffle(allDataSet)
 
-    N = NearestNeighbors(DataSetData, DataSetLabel, k=3)
+    percentSlice = round(len(allDataSet) * 20 / 100)
+
+    train, test = allDataSet[:percentSlice], allDataSet[percentSlice:]
+
+    N = NearestNeighbors(train, k=3)
     total = 0
     correct = 0
-    for item in DataSetData:
-        pr = N.predict(item)
-        # print(pr, DataSetLabel[total][0])
-        if pr == DataSetLabel[total][0]:
+    for item in test:
+        pr = N.predict(item[:-1])
+        if pr == item[-1]:
             correct += 1
         total += 1
     print('accuracy:', correct / total)
