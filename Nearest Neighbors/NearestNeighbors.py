@@ -1,5 +1,7 @@
+from sklearn.datasets import load_breast_cancer
+import pandas as pd
 import numpy as np
-import math
+import random
 
 
 class NearestNeighbors:
@@ -16,23 +18,47 @@ class NearestNeighbors:
     def manhattan(dataSetSample, NewSample):
         return np.sqrt(np.sum(abs(np.array(dataSetSample) - np.array(NewSample))))
 
-    def predict(self, newX):
-        result = []
-        for x, y in zip(self.x, self.y):
-            cal = self.manhattan(x, newX)
-            result.append([cal, y])
-        result = sorted(result)[:self.k]
+    def analyzeResult(self, predictResult):
+        result = sorted(predictResult)[:self.k]
         countGroup = [0, 0]
         for item in result[:self.k]:
-            if item[1] == 0:
+            if item[1][0] == 0:
                 countGroup[0] += 1
             else:
                 countGroup[1] += 1
         return countGroup.index(max(countGroup))
 
+    def predict(self, newX):
+        result = []
+        for x, y in zip(self.x, self.y):
+            cal = self.euclid(x, newX)
+            result.append([cal, y])
+        return self.analyzeResult(result)
+
 
 if __name__ == '__main__':
-    DataSetData = [[1, 1], [1, 3], [2, 1], [2, 5], [3, 1], [4, 3], [4, 5], [5, 1], [5, 3], [6, 3], [6, 5]]
-    DataSetLabel = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]
-    N = NearestNeighbors(DataSetData, DataSetLabel, k=1)
-    print(N.predict([3, 3]))
+
+    '''
+    Test Algorithm In Cancer Data Set
+    '''
+
+    data = load_breast_cancer()
+    DataSetData = data['data']
+    DataSetLabel = data['target']
+
+    DataSetData = pd.DataFrame(DataSetData)
+    DataSetLabel = pd.DataFrame(DataSetLabel)
+
+    DataSetData = DataSetData.astype(float).values.tolist()
+    DataSetLabel = DataSetLabel.astype(float).values.tolist()
+
+    N = NearestNeighbors(DataSetData, DataSetLabel, k=3)
+    total = 0
+    correct = 0
+    for item in DataSetData:
+        pr = N.predict(item)
+        # print(pr, DataSetLabel[total][0])
+        if pr == DataSetLabel[total][0]:
+            correct += 1
+        total += 1
+    print('accuracy:', correct / total)
