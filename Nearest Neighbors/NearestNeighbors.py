@@ -30,7 +30,7 @@ class NearestNeighbors:
 
     @staticmethod
     def manhattan(dataSetSample, NewSample):
-        return np.sqrt(np.sum(abs(np.array(dataSetSample) - np.array(NewSample))))
+        return np.sum(abs(np.array(dataSetSample) - np.array(NewSample)))
 
     def findLengthOfLabels(self):
         temp = np.unique(self.y)
@@ -74,7 +74,7 @@ if __name__ == '__main__':
 
     train, test = allDataSet[:percentSlice], allDataSet[percentSlice:]
 
-    N = NearestNeighbors(train, k=3, measure='e')
+    N = NearestNeighbors(train, k=3, measure='m')
 
     total = 0
     correct = 0
