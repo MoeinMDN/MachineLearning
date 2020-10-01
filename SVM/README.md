@@ -5,3 +5,5 @@
 - [Learning: Support Vector Machines](https://www.youtube.com/watch?v=_PwhiWxHK8o)
 - [Classification From Scratch, Part 7 of 8: SVM](https://dzone.com/articles/classification-from-scratch-svm-78)
 - [A Support Vector Machine in just a few Lines of Python Code](https://github.com/MaviccPRP/svm/blob/master/svm-primal.ipynb)
+- [SVM From Scratch — Python](https://towardsdatascience.com/svm-implementation-from-scratch-python-2db2fc52e5c2)
+- [Support Vector Machine Python Example](https://towardsdatascience.com/support-vector-machine-python-example-d67d9b63f1c8)
