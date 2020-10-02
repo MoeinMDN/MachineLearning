@@ -59,4 +59,4 @@ if __name__ == '__main__':
     data = np.array([[1, 1], [5, 5]])
     label = np.array([-1, 1])
     svm = SVM(data, label, learningRate=0.000001)
-    print(svm.train(100000))
+    svm.train(100000)
