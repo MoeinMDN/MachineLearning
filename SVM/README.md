@@ -8,3 +8,5 @@
 - [SVM From Scratch — Python](https://towardsdatascience.com/svm-implementation-from-scratch-python-2db2fc52e5c2)
 - [Support Vector Machine Python Example](https://towardsdatascience.com/support-vector-machine-python-example-d67d9b63f1c8)
 - [In-Depth: Support Vector Machines](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html)
+- [Support vector machines ( intuitive understanding ) — Part#1](https://towardsdatascience.com/support-vector-machines-intuitive-understanding-part-1-3fb049df4ba1)
+- [Support vector machines ( intuitive understanding ) — Part#2](https://towardsdatascience.com/support-vector-machines-intuitive-understanding-part-2-1046dd449c59)
