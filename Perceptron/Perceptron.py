@@ -42,4 +42,5 @@ if __name__ == '__main__':
     label = np.array([1, 1, 1, 0])
     per = Perceptron(data, label)
     per.train(100)
+    print(per.w)
     print(per.predict([0, 0]))
