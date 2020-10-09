@@ -17,7 +17,7 @@ class KMeans:
 
     @staticmethod
     def euclidean(sample, center):
-        return np.sqrt(sum((sample - center) ** 2))
+        return np.sqrt(np.sum((sample - center) ** 2))
 
     def categorizeDataWithCurrentCenter(self):
         for sample in self.x:
@@ -41,17 +41,14 @@ class KMeans:
     def updateCenters(self):
         for cat in self.category.items():
             catContent = cat[1]
-            catName = cat[0]
+            catName = int(cat[0])
             meanCat = self.findMeanOfCategoryItem(catContent)
             if meanCat is not 0:
-                self.centers[int(catName)] = meanCat
+                self.centers[catName] = meanCat
         return self.centers
 
     def train(self, epoch):
         for _ in range(epoch):
-            lastCenters = []
-            if lastCenters is self.centers:
-                break
             self.categorizeDataWithCurrentCenter()
             self.updateCenters()
         return self.centers
