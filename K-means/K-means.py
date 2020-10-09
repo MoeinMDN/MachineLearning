@@ -9,9 +9,22 @@ class KMeans:
         self.centers = [list(np.random.randint(np.min(x), np.max(x), 2)) for _ in range(k)]
         self.category = self.initializeCategory()
 
+    def initializeCategory(self):
+        self.category = {}
+        for i in range(self.k):
+            self.category[f'{i}'] = []
+        return self.category
+
     @staticmethod
     def euclidean(sample, center):
         return np.sqrt(sum((sample - center) ** 2))
+
+    def categorizeDataWithCurrentCenter(self):
+        for sample in self.x:
+            distanceFromEachCenter = [self.euclidean(sample, self.centers[d]) for d in range(len(self.centers))]
+            nameCategory = np.argmin(distanceFromEachCenter, axis=0)
+            self.category[f'{nameCategory}'].append(sample)
+        return self.category
 
     @staticmethod
     def findMeanOfCategoryItem(catContent):
@@ -34,19 +47,6 @@ class KMeans:
                 self.centers[int(catName)] = meanCat
         return self.centers
 
-    def initializeCategory(self):
-        self.category = {}
-        for i in range(self.k):
-            self.category[f'{i}'] = []
-        return self.category
-
-    def categorizeDataWithCurrentCenter(self):
-        for sample in self.x:
-            distanceFromEachCenter = [self.euclidean(sample, self.centers[d]) for d in range(len(self.centers))]
-            nameCategory = np.argmin(distanceFromEachCenter, axis=0)
-            self.category[f'{nameCategory}'].append(sample)
-        return self.category
-
     def train(self, epoch):
         for _ in range(epoch):
             lastCenters = []
@@ -66,6 +66,6 @@ if __name__ == '__main__':
     km = KMeans(data, k=2)
     km.train(100)
     centers = np.array(km.centers)
-    plt.scatter(data[:, 0], data[:, 1],c='k')
-    plt.scatter(centers[:, 0], centers[:, 1],c='b')
+    plt.scatter(data[:, 0], data[:, 1], c='k')
+    plt.scatter(centers[:, 0], centers[:, 1], c='b')
     plt.show()
