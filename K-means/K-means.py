@@ -17,7 +17,7 @@ class KMeans:
 
     @staticmethod
     def euclidean(sample, center):
-        return np.sqrt(np.sum((sample - center) ** 2))
+        return np.linalg.norm(sample - center)
 
     def categorizeDataWithCurrentCenter(self):
         for sample in self.x:
@@ -26,23 +26,11 @@ class KMeans:
             self.category[f'{nameCategory}'].append(sample)
         return self.category
 
-    @staticmethod
-    def findMeanOfCategoryItem(catContent):
-        sumX = 0
-        sumY = 0
-        lengthCat = len(catContent)
-        if lengthCat is 0:
-            return 0
-        for x, y, in catContent:
-            sumX += x
-            sumY += y
-        return [sumX / lengthCat, sumY / lengthCat]
-
     def updateCenters(self):
         for cat in self.category.items():
             catContent = cat[1]
             catName = int(cat[0])
-            meanCat = self.findMeanOfCategoryItem(catContent)
+            meanCat = np.average(catContent, axis=0)
             if meanCat is not 0:
                 self.centers[catName] = meanCat
         return self.centers
