@@ -41,6 +41,12 @@ class KMeans:
             self.updateCenters()
         return self.centers
 
+    def predict(self, sample):
+        result = []
+        for center in np.array(self.centers):
+            result.append(np.linalg.norm(center - sample))
+        return np.argmin(np.array(result), axis=0)
+
 
 if __name__ == '__main__':
     data = np.array([
@@ -54,3 +60,4 @@ if __name__ == '__main__':
     plt.scatter(data[:, 0], data[:, 1], c='k')
     plt.scatter(centers[:, 0], centers[:, 1], c='b')
     plt.show()
+    print(km.predict(np.array([43, 43])))
