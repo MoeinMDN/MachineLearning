@@ -6,7 +6,7 @@ class KMeansWithBandWidth:
     def __init__(self, x, bandWidth):
         self.x = x
         self.r = bandWidth
-        self.centers = []
+        self.centers = x
         self.categorize = {}
 
     @staticmethod
@@ -21,6 +21,17 @@ class KMeansWithBandWidth:
     def euclidean(sample, point):
         return np.linalg.norm(point - sample)
 
+    def categorizeData(self):
+        categorize = {}
+        for center in self.centers:
+            categorize[f'{center}'] = []
+            tempCat = []
+            for j in self.x:
+                tempCat.append([self.euclidean(center, j), list(j)])
+            tempCat = sorted(tempCat)
+            categorize[f'{center}'].append(tempCat[:self.r])
+        return categorize
+
     def updateCenters(self, categorize):
         tempCenters = []
         for cat in categorize.items():
@@ -32,37 +43,14 @@ class KMeansWithBandWidth:
         self.centers = self.uniqueNewCenters(tempCenters)
         return self.centers
 
-    def categorizeData(self):
-        categorize = {}
-        for center in self.centers:
-            categorize[f'{center}'] = []
-            tempCat = []
-            for j in self.x:
-                tempCat.append([self.euclidean(center, j), list(j)])
-            tempCat = sorted(tempCat)
-            categorize[f'{center}'].append(tempCat[:self.r])
-        # print(categorize)
-        # print('--'*10)
-        return categorize
-
     def train(self):
-        categorize = {}
-        # initialize categorize
-        for sample in self.x:
-            categorize[f'{sample}'] = []
-            tempCat = []
-            for j in self.x:
-                tempCat.append([self.euclidean(sample, j), list(j)])
-            tempCat = sorted(tempCat)
-            categorize[f'{sample}'].append(tempCat[:self.r])
         while True:
-            self.updateCenters(categorize)
-            print(self.centers)
             categorize = self.categorizeData()
+            self.updateCenters(categorize)
             if categorize == self.categorize:
                 break
             self.categorize = categorize
-        return self.categorize
+        return self.centers
 
 
 if __name__ == '__main__':
